@@ -3,22 +3,32 @@ import scrapy
 class ScrapeSpider(scrapy.Spider):
     name = 'scrape'
     # allowed_domains = ['nepalyp.com']
-    start_urls = ['http://nepalyp.com/category/Communications/']
+    categories=['Communications','Web_Design','Computer_Consumables','Computer_services','Web_development','Computer_software_solution','Computer_training','Internet_service_providers','Web_services','Web_hosting','Software_applications','Networking','Information_technology','Online_Content','Computers_hardware','Computer_repair','Mail_Services']
+    # categories=['Communications','Web_Design']
+    # start_urls = ['http://nepalyp.com/category/Communications/']
     # base_url='http://www.nepalyp.com'
 
+    def start_requests(self):
+        for category in self.categories:
+            url = f'http://nepalyp.com/category/{category}/'
+            yield scrapy.Request(url=url, callback=self.parse,meta={'category': category})
+
     def parse(self, response):
+        category = response.meta['category']
         pages=int(response.css('div.pages_container a:nth-child(5)::text').get())
         for page in range(1,pages+1):
-            page_url=self.start_urls[0]+str(page)
-            yield response.follow(page_url,callback=self.individualPageScraper)
+            # page_url=self.start_urls[0]+str(page)
+            page_url = response.url + str(page)
+            yield response.follow(page_url,callback=self.individualPageScraper, meta={'category': category})
 
     def individualPageScraper(self,response):
+        category = response.meta['category']
         for link in response.css('div.company h4 a::attr(href)'):
-            yield response.follow(link.get(),callback=self.parsecat)
+            yield response.follow(link.get(),callback=self.parsecat, meta={'category': category})
 
     def parsecat(self,response):
         # info_list=response.css('div.info::text').getall()
-
+        category = response.meta['category']
         # Extract Working Hours
         working_hours_label = response.xpath('//span[@class="label" and contains(text(), "Working hours")]/following-sibling::text()').get()
         working_hours = working_hours_label.strip() if working_hours_label is not None else 'Not Specifieed'
@@ -36,6 +46,7 @@ class ScrapeSpider(scrapy.Spider):
         manager = manager_label.strip() if manager_label is not None else 'Not Specified'
 
         yield{
+            'category': category,
             'rating':response.css('div.cmp_rate span.rate::text').get(),
             'no_of_reviews':response.css('div.cmp_rate a.reviews_count span::text').get(),
             'company_name':response.css('#company_name::text').get(),
