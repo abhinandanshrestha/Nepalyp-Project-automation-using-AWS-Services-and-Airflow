@@ -4,8 +4,8 @@ from ..items import FinalquestionItem
 class ScrapeSpider(scrapy.Spider):
     name = 'scrape'
     # allowed_domains = ['nepalyp.com']
-    # categories=['Communications','Web_Design','Computer_Consumables','Computer_services','Web_development','Computer_software_solution','Computer_training','Internet_service_providers','Web_services','Web_hosting','Software_applications','Networking','Information_technology','Online_Content','Computers_hardware','Computer_repair','Mail_Services']
-    categories=['Web_Design']
+    categories=['Communications','Web_Design','Computer_Consumables','Computer_services','Web_development','Computer_software_solution','Computer_training','Internet_service_providers','Web_services','Web_hosting','Software_applications','Networking','Information_technology','Online_Content','Computers_hardware','Computer_repair','Mail_Services']
+    # categories=['Mail_Services']
     # start_urls = ['http://nepalyp.com/category/Communications/']
     # base_url='http://www.nepalyp.com'
 
@@ -16,7 +16,14 @@ class ScrapeSpider(scrapy.Spider):
 
     def parse(self, response):
         category = response.meta['category']
-        pages=int(response.css('div.pages_container a:nth-child(5)::text').get())
+
+        if category=='Computers_hardware' or category=='Computer_repair':
+            pages=int(response.css('div.pages_container a:nth-child(3)::text').get())
+        elif category=='Mail_Services':
+            pages=1
+        else:
+            pages=int(response.css('div.pages_container a:nth-child(5)::text').get())
+
         for page in range(1,pages+1):
             # page_url=self.start_urls[0]+str(page)
             page_url = response.url + str(page)
