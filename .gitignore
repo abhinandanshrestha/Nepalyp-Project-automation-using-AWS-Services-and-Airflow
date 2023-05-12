@@ -1,3 +1,6 @@
 scrape
 test.csv
 new.csv
+node_modules
+.env
+visualization/node_modules
