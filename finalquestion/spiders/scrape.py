@@ -4,8 +4,8 @@ from ..items import FinalquestionItem
 class ScrapeSpider(scrapy.Spider):
     name = 'scrape'
     # allowed_domains = ['nepalyp.com']
-    categories=['Communications','Web_Design','Computer_Consumables','Computer_services','Web_development','Computer_software_solution','Computer_training','Internet_service_providers','Web_services','Web_hosting','Software_applications','Networking','Information_technology','Online_Content','Computers_hardware','Computer_repair','Mail_Services']
-    # categories=['Mail_Services']
+    # categories=['Communications','Web_Design','Computer_Consumables','Computer_services','Web_development','Computer_software_solution','Computer_training','Internet_service_providers','Web_services','Web_hosting','Software_applications','Networking','Information_technology','Online_Content','Computers_hardware','Computer_repair','Mail_Services']
+    categories=['Mail_Services']
     # start_urls = ['http://nepalyp.com/category/Communications/']
     # base_url='http://www.nepalyp.com'
 

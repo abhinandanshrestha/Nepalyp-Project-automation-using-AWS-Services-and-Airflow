@@ -10,22 +10,19 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 import psycopg2
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 db_params = {
-    'dbname': 'postgres',
-    'user': 'postgres',
-    'password': 'postgresql',
-    'host': 'postgres.ccvxfl9suwm2.ap-south-1.rds.amazonaws.com',
-    'port': '5432'
+    'dbname': os.getenv('DB_NAME'),
+    'user': os.getenv('DB_USER'),
+    'password': os.getenv('DB_PASSWORD'),
+    'host': os.getenv('DB_HOST'),
+    'port': os.getenv('DB_PORT')
 }
 
-# db_params = {
-#     'dbname': 'finalquestion',
-#     'user': 'postgres',
-#     'password': 'postgresql',
-#     'host': '192.168.101.1',
-#     'port': '5432'
-# }
 
 class FinalquestionPipeline:
     def process_item(self, item, spider):
