@@ -32,4 +32,5 @@ This is a data pipelining project that scrapes data from https://www.nepalyp.com
 
 > Step 4:
 >
-> open **visualization.nbconvert.ipynb** to see updates on visualizations
+> see plotly dashboard on localhost:8050
+> or open **visualization.nbconvert.ipynb** to see updates on visualizations
