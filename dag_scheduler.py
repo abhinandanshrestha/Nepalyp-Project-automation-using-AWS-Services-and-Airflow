@@ -23,9 +23,17 @@ scrape_task = BashOperator(
 
 notebook_task = BashOperator(
     task_id='notebook_task',
+    # bash_command='cd /home/abhi/airflow/dags && python3 plotly-dash.py',
     bash_command='jupyter nbconvert --execute /home/abhi/airflow/dags/visualization.ipynb --to notebook',
     dag=dag
 )
 
-# notebook_task
-scrape_task >> notebook_task
+dash_task = BashOperator(
+    task_id='dashk_task',
+    bash_command='cd /home/abhi/airflow/dags && python3 plotly-dash.py',
+    # bash_command='jupyter nbconvert --execute /home/abhi/airflow/dags/visualization.ipynb --to notebook',
+    dag=dag
+)
+
+# scrape_task >> node_api_task >> notebook_task
+scrape_task >> notebook_task >> dash_task #scrape-->save to postgresql(AWS RDS)-->API using API Gateway and Lambda-->Plotly-dash
