@@ -7,7 +7,7 @@ import plotly.colors
 app = dash.Dash(__name__)
 
 # Fetch data from the API
-api_url='https://22re9twsea.execute-api.ap-south-1.amazonaws.com/abhi'
+api_url='https://c5hbwkkh55.execute-api.us-east-1.amazonaws.com/api/'
 response = requests.get(api_url)
 data = response.json()['body']
 

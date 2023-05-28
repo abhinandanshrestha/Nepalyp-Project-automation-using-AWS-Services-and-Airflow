@@ -1,14 +1,22 @@
+import os
+import sys
+import subprocess
+
+# install psychopg2-binary so that the package is available to the lambda_function.py locally
+subprocess.call('pip3 install psycopg2-binary -t /tmp/ --no-cache-dir'.split(), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+sys.path.insert(1, '/tmp/')
+
 import psycopg2
 
 dbparams={
-    'dbname': 'finalquestion',
+    'dbname': 'postgres',
     'user': 'postgres',
     'password': 'postgresql',
-    'host': 'localhost',
+    'host': 'postgres.clptmxbw0fgh.us-east-1.rds.amazonaws.com',
     'port': '5432'
 }
 
-def lambda_handler():
+def lambda_handler(event,context):
     # Connect to the PostgreSQL database
     conn = psycopg2.connect(**dbparams)
 
@@ -49,3 +57,5 @@ def lambda_handler():
         'statusCode': 200,
         'body': results
     }
+
+print(lambda_handler())
