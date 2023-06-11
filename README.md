@@ -6,6 +6,7 @@ This is a data pipelining project that scrapes data from https://www.nepalyp.com
 2. Store the scraped data into AWS RDS PostgreSQL database.
 3. Serve API using API Gateway and AWS Lambda.
 4. Requeste data from the API server created using API Gateway and create visualization using Plotly in jupyter notebook.
+![diagram](https://github.com/abhinandanshrestha/nepalypscraper/assets/43780258/069d958a-a140-42cc-9477-111cf1efa041](https://github.com/abhinandanshrestha/nepalypscraper/blob/Approach-B/diagram.png)
 
 ## Framework and tools used:
 1. Scrapy: To scrape data from https://www.nepalyp.com
