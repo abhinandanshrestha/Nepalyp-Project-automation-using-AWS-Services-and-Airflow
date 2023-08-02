@@ -1,11 +1,11 @@
 # nepalypscraper
 This is a data pipelining project that scrapes data from https://www.nepalyp.com/
 
-## Steps followed by Airflow:
+## This project uses Airflow for automation. The steps include:
 1. Scrape data from https://www.nepalyp.com
 2. Store the scraped data into AWS RDS PostgreSQL database.
 3. Serve API using API Gateway and AWS Lambda.
-4. Requeste data from the API server created using API Gateway and create visualization using Plotly in jupyter notebook.
+4. Requested data from the API server created using API Gateway and create visualization using Plotly in jupyter notebook.
 ![diagram](diagram.png)
 
 ## Framework and tools used:
